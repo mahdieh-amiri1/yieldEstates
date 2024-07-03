@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Pausable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
 /**
- * @title FractionalizedNFT
+ * @title ERC1155RealEstate
  * @dev ERC1155 token with fractional ownership, pausability, burnable, and role-based access control.
  */
 contract ERC1155RealEstate is
