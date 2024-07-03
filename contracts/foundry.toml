@@ -1,6 +1,30 @@
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
 [profile.default]
 src = "src"
 out = "out"
 libs = ["lib"]
 
-# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
+remappings = ['@openzeppelin/contracts=lib/openzeppelin-contracts/contracts']
+    # '@redstone-finance/contracts=lib/redstone-oracles-monorepo/packages/evm-connector/contracts'
+
+
+# Networks Configuration
+[profile.networks]
+fraxtal_testnet = { rpc_url = "${FRACTAL_RPC_URL}" }
+fraxtal_mainnet = { rpc_url = "${FRACTAL_MAINNET_RPC_URL}" }
+
+[rpc_endpoints]
+fraxtal_testnet = {  url = "$FRACTAL_RPC_URL",explorer = { url = "https://holesky.fraxscan.com/" }}
+fraxtal_mainnet = {  url = "$FRACTAL_MAINNET_RPC_URL",explorer = { url = "https://fraxscan.com/" }}
+
+[etherscan]
+2522 = { key = "$FRACTAL_ETHERSCAN_API_KEY" }
+252 = { key = "$FRACTAL_MAINNET_ETHERSCAN_API_KEY" }
+
+
+# Use this command to deploy to the testnet
+# forge script ./script/Deploy.s.sol:Deploy --rpc-url $env:FRACTAL_RPC_URL --broadcast --verify
+# Use this command to deploy to the mainnet
+# forge script ./script/Deploy.s.sol:Deploy --rpc-url $env:FRACTAL_MAINNET_RPC_URL --broadcast --verify
