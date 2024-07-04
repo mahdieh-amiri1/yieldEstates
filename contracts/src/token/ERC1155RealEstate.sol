@@ -181,6 +181,14 @@ contract ERC1155RealEstate is
         return _operatorApprovals[account][operator][id];
     }
 
+    function canTransfer(
+        address from,
+        address to,
+        uint256 value
+    ) external view returns (bool) {
+        return true;
+    }
+
     function safeTransferFrom(
         address from,
         address to,
