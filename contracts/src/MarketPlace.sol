@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 import "./token/ERC1155RealEstate.sol";
+import "./YieldEngine.sol";
 import {PriceConsumerV3} from "./PriceConsumerV3.sol";
 
 contract MarketPlace is AccessControl, ReentrancyGuard, Pausable {
@@ -65,15 +66,16 @@ contract MarketPlace is AccessControl, ReentrancyGuard, Pausable {
         OfferType offerType;
         address privateOfferTaker; // Optional
     }
-    mapping(uint256 offerId => Offer) private _offers;
-    mapping(uint256 offerId => mapping(address owner => bool)) private _listers;
-    mapping(uint256 offerId => address seller) private _seller;
-    mapping(address => TokenType) private _tokenTypes;
 
     uint256 private _offersCount;
     uint256 public fee; // fee in basis points
     PriceConsumerV3 public priceConsumerV3;
+    YieldEngine public yieldEngine;
 
+    mapping(uint256 offerId => Offer) private _offers;
+    mapping(uint256 offerId => mapping(address owner => bool)) private _listers;
+    mapping(uint256 offerId => address seller) private _seller;
+    mapping(address => TokenType) private _tokenTypes;
     mapping(uint256 => uint256) private offerBlockNumbers;
 
     /**
@@ -121,24 +123,32 @@ contract MarketPlace is AccessControl, ReentrancyGuard, Pausable {
      **/
     event FeeChanged(uint256 indexed oldFee, uint256 indexed newFee);
 
-    constructor(address _priceConsumerV3) {
+    constructor(address _priceConsumerV3, address _FRAX, address _RealEstate) {
         address defaultAdmin = _msgSender();
         _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
         priceConsumerV3 = PriceConsumerV3(_priceConsumerV3);
+        _tokenTypes[_FRAX] = TokenType.ALLOWEDBUYER;
+        _tokenTypes[_RealEstate] = TokenType.REALESTATE;
+    }
+
+    function setYieldEngine(
+        address _yieldEngine
+    ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        yieldEngine = YieldEngine(_yieldEngine);
     }
 
     function toggleTokenTypes(
-        address[] calldata tokens_,
-        TokenType[] calldata types_
+        address[] calldata tokens,
+        TokenType[] calldata types
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        if (tokens_.length != types_.length) {
-            revert MarketPlaceInvalidArrayLength(tokens_.length, types_.length);
+        if (tokens.length != types.length) {
+            revert MarketPlaceInvalidArrayLength(tokens.length, types.length);
         }
 
-        for (uint256 i = 0; i < tokens_.length; i++) {
-            _tokenTypes[tokens_[i]] = types_[i];
+        for (uint256 i = 0; i < tokens.length; i++) {
+            _tokenTypes[tokens[i]] = types[i];
         }
-        emit TokenTypesToggled(tokens_, types_);
+        emit TokenTypesToggled(tokens, types);
     }
 
     function createOffer(
@@ -231,8 +241,9 @@ contract MarketPlace is AccessControl, ReentrancyGuard, Pausable {
     // Approve contract before calling this
     function takeOffer(
         uint256 offerId,
-        uint256 value,
-        address buyerToken
+        // uint256 value,
+        address buyerToken,
+        address collateral
     ) external whenNotPaused {
         Offer memory offer = _offers[offerId];
 
@@ -282,20 +293,44 @@ contract MarketPlace is AccessControl, ReentrancyGuard, Pausable {
 
             emit SellOfferFilled(offerId, seller, buyer);
         } else if (offer.offerType == OfferType.RENT) {
-            // Implement renting logic here
-
+            address renter = msg.sender;
             address[] memory tokenOwners = realEstateToken.ownersOf(
                 offer.tokenId
             );
 
+            uint256 maxSupply = realEstateToken.maxSupply(offer.tokenId);
+            uint256 maxYield = maxSupply * offer.price * 12;
+
             for (uint256 i; i < tokenOwners.length; i++) {
-                uint256 ownerShare = realEstateToken.balanceOf(
+                uint256 ownerBalance = realEstateToken.balanceOf(
                     tokenOwners[i],
                     offer.tokenId
-                ) * offer.price;
+                );
 
+                uint256 ownerYield = (ownerBalance * maxYield) / maxSupply;
                 // Mint PT and YT for owners based on their owned shares of the RealEstateToken
+
+                uint256 stakeId = yieldEngine.mintPrimaryToken(
+                    offer.tokenAddress,
+                    tokenOwners[i],
+                    offer.tokenId,
+                    ownerBalance
+                );
+
+                yieldEngine.mintYieldToken(stakeId, ownerYield);
+
                 // Lock callaterall from renter to the vault
+                uint256 collateralValue = priceConsumerV3.getUSDToETH(
+                    (maxYield * 100) / 800,
+                    8
+                );
+                yieldEngine.stakeCollateral(
+                    stakeId,
+                    collateral,
+                    renter,
+                    collateralValue,
+                    maxYield
+                );
             }
         }
 

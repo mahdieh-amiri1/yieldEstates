@@ -7,9 +7,9 @@ contract PriceConsumerV3 {
     AggregatorV3Interface internal priceFeed;
 
     /**
-     * Network: Mumbai Testnet
-     * Aggregator: MATIC/USD
-     * Address: 0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada
+     * Network: FRAX HoleSky Testnet
+     * Aggregator: ETH/USD
+     * Address: 0x89e60b56efD70a1D4FBBaE947bC33cae41e37A72
      */
     constructor() {
         priceFeed = AggregatorV3Interface(
@@ -21,13 +21,7 @@ contract PriceConsumerV3 {
      * Returns the latest price
      */
     function getLatestPrice() public view returns (int) {
-        (
-            uint80 roundID,
-            int price,
-            uint startedAt,
-            uint timeStamp,
-            uint80 answeredInRound
-        ) = priceFeed.latestRoundData();
+        (, int price, , , ) = priceFeed.latestRoundData();
         return price;
     }
 
@@ -39,11 +33,9 @@ contract PriceConsumerV3 {
         uint256 _usd,
         uint8 _usdDecimals
     ) public view returns (uint) {
-        
-        int _ethUSDPrice = getLatestPrice(); // 8 decimals
+        int _ethUSDPrice = getLatestPrice();
         uint8 _decimals = getDecimals();
 
-        // ex: 1 matic = 0.9 $ --> 90_000_000
         uint256 _eths = ((_usd * uint(_decimals)) / uint(_ethUSDPrice)) *
             uint(_usdDecimals);
         return _eths;

@@ -198,8 +198,6 @@ contract ERC1155RealEstate is
         return _isApproved(from, sender, id, value);
     }
 
-    
-
     function safeTransferFrom(
         address from,
         address to,
@@ -332,7 +330,6 @@ contract ERC1155RealEstate is
         emit OwnershipRemoved(from, id);
     }
 
-
     function _isApproved(
         address from,
         address sender,
@@ -344,5 +341,4 @@ contract ERC1155RealEstate is
             isApprovedForAll(from, sender) ||
             _operatorApprovals[from][sender][id] >= value;
     }
-
 }
