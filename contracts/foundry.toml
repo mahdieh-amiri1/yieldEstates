@@ -6,7 +6,9 @@ out = "out"
 libs = ["lib"]
 
 
-remappings = ['@openzeppelin/contracts=lib/openzeppelin-contracts/contracts']
+remappings = ['@openzeppelin/contracts=lib/openzeppelin-contracts/contracts',
+    '@redstone/contracts=lib/redstone-oracles-monorepo/packages/evm-connector/contracts/core'
+]
     # '@redstone-finance/contracts=lib/redstone-oracles-monorepo/packages/evm-connector/contracts'
 
 

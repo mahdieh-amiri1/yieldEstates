@@ -29,6 +29,13 @@ contract ERC1155RealEstate is
 
     error RealEstateNonexistentToken(uint256 id);
 
+    error RealEstateMissingApproval(
+        address sender,
+        address from,
+        uint256 id,
+        uint256 value
+    );
+
     uint256 private _idCounter;
 
     mapping(uint256 id => uint256) private _maxSupply;
@@ -181,13 +188,17 @@ contract ERC1155RealEstate is
         return _operatorApprovals[account][operator][id];
     }
 
-    function canTransfer(
+    function isApproved(
         address from,
-        address to,
+        address sender,
+        uint256 id,
         uint256 value
     ) external view returns (bool) {
-        return true;
+        // Check approval
+        return _isApproved(from, sender, id, value);
     }
+
+    
 
     function safeTransferFrom(
         address from,
@@ -197,12 +208,11 @@ contract ERC1155RealEstate is
         bytes memory data
     ) public override {
         address sender = _msgSender();
-        if (from != sender && !isApprovedForAll(from, sender)) {
-            if (_operatorApprovals[from][sender][id] < value) {
-                revert ERC1155MissingApprovalForAll(sender, from);
-            }
-            _operatorApprovals[from][sender][id] -= value;
+        if (!_isApproved(from, sender, id, value)) {
+            revert RealEstateMissingApproval(sender, from, id, value);
         }
+
+        _operatorApprovals[from][sender][id] -= value;
 
         _safeTransferFrom(from, to, id, value, data);
 
@@ -221,17 +231,22 @@ contract ERC1155RealEstate is
         bytes memory data
     ) public override {
         address sender = _msgSender();
-        if (from != sender && !isApprovedForAll(from, sender)) {
-            for (uint256 i; i < ids.length; i++) {
-                if (_operatorApprovals[from][sender][ids[i]] < values[i])
-                    revert ERC1155MissingApprovalForAll(sender, from);
 
-                _operatorApprovals[from][sender][ids[i]] -= values[i];
-                // if (balanceOf(from, ids[i]) - values[i] == 0) {
-                //     _removeOwnership(from, ids[i]);
-                // }
-            }
+        for (uint256 i; i < ids.length; i++) {
+            if (!_isApproved(from, sender, ids[i], values[i]))
+                revert RealEstateMissingApproval(
+                    sender,
+                    from,
+                    ids[i],
+                    values[i]
+                );
+
+            _operatorApprovals[from][sender][ids[i]] -= values[i];
+            // if (balanceOf(from, ids[i]) - values[i] == 0) {
+            //     _removeOwnership(from, ids[i]);
+            // }
         }
+
         _safeBatchTransferFrom(from, to, ids, values, data);
         // emits TransferBatch(operator, from, to, ids, values);
     }
@@ -316,4 +331,18 @@ contract ERC1155RealEstate is
 
         emit OwnershipRemoved(from, id);
     }
+
+
+    function _isApproved(
+        address from,
+        address sender,
+        uint256 id,
+        uint256 value
+    ) internal view returns (bool) {
+        return
+            from == sender ||
+            isApprovedForAll(from, sender) ||
+            _operatorApprovals[from][sender][id] >= value;
+    }
+
 }
