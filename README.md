@@ -50,16 +50,15 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 
 **Key Functions**:
 - `mint`: Creates new real estate tokens.
-- `transfer`: Enables transfer of fractional shares.
+- `safeTransferFrom`: Enables transfer of fractional shares.
 
 ### MarketPlace
 
 **Purpose**: Facilitates listing, buying, and selling of real estate tokens, PTs, and YTs.
 
 **Key Functions**:
-- `listProperty`: Lists a real estate token for sale or rent.
-- `buyProperty`: Allows users to purchase listed real estate tokens.
-- `rentProperty`: Enables rental of listed real estate tokens.
+- `createOffer`: Lists a real estate token for sale or rent.
+- `takeOffer`: Allows users to purchase listed real estate tokens or rental of listed real estate tokens.
 
 ### YieldEngine
 
@@ -100,77 +99,6 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 
 ### Prerequisites
 
-- **Node.js** and **npm**: Ensure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-- **Hardhat**: Install Hardhat for Ethereum development.
-
-```bash
-npm install --save-dev hardhat
-
-Fraxtal Ecosystem: Ensure you have access to Fraxtal tokens and utilities.
-Installation
-Clone the repository:
-bash
-Copy code
-git clone https://github.com/yourusername/yieldEstates.git
-cd yieldEstates
-Install dependencies:
-bash
-Copy code
-npm install
-Deployment
-Configure environment: Create a .env file based on .env.example and add your configuration.
-Compile contracts:
-bash
-Copy code
-npx hardhat compile
-Deploy contracts:
-bash
-Copy code
-npx hardhat run scripts/deploy.js --network your_network
-Usage
-Mint Real Estate Tokens: Use ERC1155RealEstate to mint tokens.
-List on MarketPlace: List tokens for sale or rent using MarketPlace.
-Stake and Generate Yield: Utilize YieldEngine to stake tokens, pay rental fees, claim yield, and redeem collateral.
-Testing
-Run tests:
-bash
-Copy code
-npx hardhat test
-Check coverage:
-bash
-Copy code
-npx hardhat coverage
-Contributing
-Fork the repository.
-Create a feature branch:
-bash
-Copy code
-git checkout -b feature/your-feature
-Commit your changes:
-bash
-Copy code
-git commit -m 'Add new feature'
-Push to the branch:
-bash
-Copy code
-git push origin feature/your-feature
-Open a Pull Request.
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Contact
-Project Maintainer: Your Name - your.email@example.com
-GitHub: https://github.com/yourusername/yieldEstates
-yaml
-Copy code
-
----
-
-### Notes:
-- Replace placeholders like `yourusername`, `your_network`, and email with actual values.
-- Update the URL to your logo if available.
-- Ensure the contact details and deployment scripts match your actual setup.
-- Add any additional details or configurations specific to your project's needs.
-
-This `README.md` provides a comprehensive overview of the project, along with instructions for setup, usage, and contribution, making it easier for others to understand and engage with your project.
+- **Foundry**: Ensure you have Foundry installed. Follow the [Foundry installation guide](https://github.com/foundry-rs/foundry) if not already set up.
+- **Frax Ecosystem**: Ensure you have access to Frax tokens and utilities.
 
