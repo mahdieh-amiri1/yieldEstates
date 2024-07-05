@@ -1,0 +1,2 @@
+export const RealEStateNFTContractAddress = "0xe70AA5B26D0B7ce07aFc5C76f6045af24D9ad726"
+export const MarketPlaceContractAddress  = "0xEb5454475d33Bc710Eae4b13E94A441eb49b7981"
