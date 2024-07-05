@@ -44,6 +44,14 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 
 ## Contracts
 
+  Deployed PriceConsumerV3 at 0x0092eA01cE547A2Fc236004f26603D3c044dfF74
+  Deployed MockFraxToken at 0x608BbBC93EF6E0765C72313Db58d4e10Eea81459
+  Deployed ERC1155RealEstate at 0xba892672522726e09711300F1A193ff0F2F00222
+  Deployed MarketPlace at 0xe70AA5B26D0B7ce07aFc5C76f6045af24D9ad726
+  Deployed PrimaryToken at 0xEb5454475d33Bc710Eae4b13E94A441eb49b7981
+  Deployed YieldToken at 0x0CeABE52f989FaCEd0D6Fee3dF37FeFE5A9DCEeC
+  Deployed YieldEngine at 0x5bfca951E55Fed1750e65a5F63A646A83F009e92
+  
 ### ERC1155RealEstate
 
 **Purpose**: Tokenizes real estate into fractional shares allowing multiple ownership.
