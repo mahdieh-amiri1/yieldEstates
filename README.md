@@ -16,11 +16,11 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 ## Features
 
 - **Tokenize Real Estate**: Fractionalize properties into ERC1155 tokens for multiple owners.
-- **Marketplace**: List, buy, and sell real estate tokens, Primary Tokens (PT), and Yield Tokens (YT).
-- **Yield Engine**: Manage rentals, collateral, and yield distribution seamlessly.
+- **Marketplace**: List, buy, sell and rent asset-backed real estate tokens, Primary Tokens (PT), and Yield Tokens (YT).
+- **Yield Engine**: Manage rentals, collateral, primary tokens, yield tokens and yield distribution seamlessly.
 - **PrimaryToken (ERC20)**: Tradable token representing real estate ownership.
 - **YieldToken (ERC20)**: Tradable token representing the right to claim rental yield.
-- **Collateral Management**: Secure collateral handling with liquidation mechanisms for non-payment.
+- **Collateral Management**: Secure collateral handling with liquidation mechanisms for non-payment penalty.
 - **Oracle Integration**: Real-time price feeds for ETH used as collateral.
 
 ## Table of Contents
