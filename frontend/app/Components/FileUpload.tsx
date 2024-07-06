@@ -54,7 +54,6 @@ const ImageUploadToIPFS = (props: Props) => {
         pinataContent: {
           name: name,
           description: description,
-          external_url: "https://Narpet.io",
           image: ipfsUri
         },
         pinataMetadata: {
