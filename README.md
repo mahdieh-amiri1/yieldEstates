@@ -1,6 +1,7 @@
 # yieldEstates
+Pendle protocol but for real estates!
 
-![yieldEstates](https://path_to_logo/logo.png) <!-- Replace with your project's logo URL -->
+![yieldEstates](https://github.com/mahdieh-amiri1/yieldEstates/assets/99467399/0fcd5690-b0ca-484d-87f8-e92260c74e07)
 
 ## Overview
 
@@ -43,17 +44,11 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 - [Contact](#contact)
 
 ## Contracts
-
-  Deployed PriceConsumerV3 at 0x0092eA01cE547A2Fc236004f26603D3c044dfF74
-  Deployed MockFraxToken at 0x608BbBC93EF6E0765C72313Db58d4e10Eea81459
-  Deployed ERC1155RealEstate at 0xba892672522726e09711300F1A193ff0F2F00222
-  Deployed MarketPlace at 0xe70AA5B26D0B7ce07aFc5C76f6045af24D9ad726
-  Deployed PrimaryToken at 0xEb5454475d33Bc710Eae4b13E94A441eb49b7981
-  Deployed YieldToken at 0x0CeABE52f989FaCEd0D6Fee3dF37FeFE5A9DCEeC
-  Deployed YieldEngine at 0x5bfca951E55Fed1750e65a5F63A646A83F009e92
   
 ### ERC1155RealEstate
 
+***Address on Fraxtal mainnet: 0xba892672522726e09711300F1A193ff0F2F00222***
+ 
 **Purpose**: Tokenizes real estate into fractional shares allowing multiple ownership.
 
 **Key Functions**:
@@ -62,6 +57,8 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 
 ### MarketPlace
 
+***Address on Fraxtal mainnet: 0xe70AA5B26D0B7ce07aFc5C76f6045af24D9ad726***
+
 **Purpose**: Facilitates listing, buying, and selling of real estate tokens, PTs, and YTs.
 
 **Key Functions**:
@@ -69,6 +66,8 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 - `takeOffer`: Allows users to purchase listed real estate tokens or rental of listed real estate tokens.
 
 ### YieldEngine
+
+***Address on Fraxtal mainnet: 0x5bfca951E55Fed1750e65a5F63A646A83F009e92***
 
 **Purpose**: Manages rentals, collateral, and yield distribution.
 
@@ -82,6 +81,8 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 
 ### PrimaryToken
 
+***Address on Fraxtal mainnet: 0xEb5454475d33Bc710Eae4b13E94A441eb49b7981***
+
 **Purpose**: ERC20 token representing real estate ownership.
 
 **Key Functions**:
@@ -90,6 +91,8 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 
 ### YieldToken
 
+***Address on Fraxtal mainnet: 0x0CeABE52f989FaCEd0D6Fee3dF37FeFE5A9DCEeC***
+
 **Purpose**: ERC20 token representing the right to claim yield.
 
 **Key Functions**:
@@ -97,6 +100,8 @@ The traditional real estate market faces high entry barriers, limited liquidity,
 - `burn`: Destroys YieldTokens upon yield claim.
 
 ### PriceConsumer
+
+***Address on Fraxtal mainnet: 0x0092eA01cE547A2Fc236004f26603D3c044dfF74***
 
 **Purpose**: Uses RedStone oracles to retrieve the price of ETH for collateral purposes.
 
