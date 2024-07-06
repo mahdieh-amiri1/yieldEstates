@@ -1,8 +1,6 @@
 # [yieldEstates](https://yield-estates.vercel.app/)
 Pendle protocol but for real estates!
-
-<img src="https://path_to_logo/logo.png](https://github.com/mahdieh-amiri1/yieldEstates/assets/99467399/0fcd5690-b0ca-484d-87f8-e92260c74e07" alt="yieldEstates Logo" width="200" height="200"> 
-
+---
 
 ## Overview
 
