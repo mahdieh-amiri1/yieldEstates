@@ -1,7 +1,7 @@
 # yieldEstates
 Pendle protocol but for real estates!
 
-![yieldEstates](https://github.com/mahdieh-amiri1/yieldEstates/assets/99467399/0fcd5690-b0ca-484d-87f8-e92260c74e07)
+![yieldEstates](https://github.com/mahdieh-amiri1/yieldEstates/assets/99467399/0fcd5690-b0ca-484d-87f8-e92260c74e07 =250x250)
 
 ## Overview
 
