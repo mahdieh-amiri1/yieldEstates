@@ -1,7 +1,8 @@
 # yieldEstates
 Pendle protocol but for real estates!
 
-![yieldEstates](https://github.com/mahdieh-amiri1/yieldEstates/assets/99467399/0fcd5690-b0ca-484d-87f8-e92260c74e07 =250x250)
+<img src="[https://path_to_logo/logo.png](https://github.com/mahdieh-amiri1/yieldEstates/assets/99467399/0fcd5690-b0ca-484d-87f8-e92260c74e07" alt="yieldEstates Logo" width="150" height="150"> 
+
 
 ## Overview
 
